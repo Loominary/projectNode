@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business cards</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/general-style.css">
+    
+  </head>
+  <body>
+    <div class="container">
+    
+    <form method="post" action="/business">
+      <h3>Add your business:</h3>
+      <div>
+        <label>Name</label>
+        <input type="text" name="bisName" id="bisName" />
+      </div>
+      <div>
+        <label>Description</label>
+        <input type="text" name="description" id="description" />
+      </div>
+      <div>
+        <label>Address</label>
+        <input type="text" name="address" id="address" />
+      </div>
+      <div>
+        <label>Phone</label>
+        <input type="text" name="phone" id="phone" />
+      </div>
+      <!-- todo: add image -->
+    
+<br>
+      <button type="submit" class="interact-button">Add card</button>
+    </form>
+  </div>
+
+    <div class="container"> 
+      <form method="get" action="/business/card">
+        <h3>Get card by ID:</h3>
+        <input type="number" name="cardId" id="cardId" /> <br>
+        <button type="submit" class="interact-button">Find card by ID</button>
+      </form>
+
+      
+      <form method="get" action="/business/all-cards">
+        <h3>Find all cards of a customer:</h3>
+        <input type="number" name="customerId" id="customerId" /><br>
+        <button type="submit" class="interact-button">Find all cards</button> 
+      </form>
+</div>
+
+<div class="container">
+      <h3>Delete by ID:</h3>
+      <label>ID:</label>
+      <input type="number" id="deleteId" /> <br>
+      <input type="button" class="interact-button" id="deleteBtn" value="Delete Card" />
+    </div>
+
+<div class="container">    
+    <form id="updateForm">
+      <h3>Update card:</h3>
+      <div>
+        <label>ID of the card you wish to change:</label>
+    <input type="number" id="updateId" />
+      </div>
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="business_name" id="bisName" />
+      </div>
+      <div>
+        <label>Description:</label>
+        <input type="text" name="description" id="description" />
+      </div>
+      <div>
+        <label>Address:</label>
+        <input type="text" name="address" id="address" />
+      </div>
+      <div>
+        <label>Phone:</label>
+        <input type="number" name="phone" id="phone" />
+      </div>
+      <div>
+        <label>Change image:</label>
+        <input type="text" name="image" id="image" />
+      </div>
+      <!-- <input type="button" id="updateBtn" /> -->
+      <br>
+      <button type="submit" class="interact-button">Update</button>
+    </form>
+  </div>
+    <script>
+      // DELETE SCRIPT
+
+      document.getElementById("deleteBtn").addEventListener("click", () => {
+        const deleteId = document.getElementById("deleteId").value;
+
+        console.log(deleteId);
+        deleteCard(deleteId);
+      });
+
+      function deleteCard(id) {
+        return fetch(`http://localhost:3000/business/${id}`, {
+          method: "DELETE",
+        });
+      }
+
+      //PUT SCRIPT
+      const form = document.getElementById("updateForm");
+      form.addEventListener("submit", handleSubmit);
+
+      function handleSubmit(e) {
+        e.preventDefault();
+
+        const updateId = document.getElementById("updateId").value;
+        
+        const data = new FormData(event.target);
+        const value = Object.fromEntries(data.entries());
+
+        const cleanData = clean(value);
+
+        putData(`http://localhost:3000/business/${updateId}`, value);
+      }
+
+      function clean(obj) {
+        for (const propName in obj) {
+          if (obj[propName] === "") {
+            delete obj[propName];
+          }
+        }
+      }
+
+      function putData(url, data) {
+        console.log(JSON.stringify(data));
+        fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then((data) => {
+          console.log(data);
+          console.log({ data });
+        });
+      }
+
+      /* async function putData(url, data){
+          
+         const response = await  fetch(url,{
+            method: 'PUT',
+            body: JSON.stringify(data)
+          })
+          .then(data=> {
+            console.log(data);
+          })
+        } */
+    </script>
+  </body>
+</html>

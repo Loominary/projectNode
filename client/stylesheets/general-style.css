@@ -1,0 +1,73 @@
+body {
+  height: 95vh;
+  width: 95vw;
+display: flex;
+align-items: center;
+justify-content: center;
+/*   padding: 50px; */
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.button-div {
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  border: 1px solid black ;
+}
+
+form {
+  padding: 40px;
+  
+}
+
+form label {
+  padding: 10px;
+}
+
+label {
+  display: inline-block;
+  width: 110px;
+  color: #000000;
+}
+input {
+  padding: 5px 20px;
+}
+
+select {
+  padding: 5px 20px;
+}
+
+button {
+  border: none;
+  background-color: #143350;
+ 
+  color: rgb(255, 255, 255);
+  padding: 15px 32px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.interact-button {
+  border: none;
+  width: 100%;
+  background-color: #006ed4;
+  color: rgb(255, 255, 255);
+  padding: 10px 25px;
+  font-size: 16px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
